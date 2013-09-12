@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block html_title %}{% endblock %}</title>
+        <meta name="description" content="{% include 'includes/meta_description.txt' ignore missing %}">
+        <meta name="viewport" content="width=device-width">
+        <meta charset="utf-8" />
+        {%- if ENVIRONMENT != 'production' -%}
+            <meta name="robots" content="noindex, nofollow">
+        {%- endif %}
+        <link rel="stylesheet" type="text/css" href="http://cdn.droptype.com/formwork/formwork-0.1.0-min.css">
+        <link rel="stylesheet" href="{{ static_url('screen.css') }}" type="text/css">
+{#        <link rel="icon" href="{{ static_url('favicon.png') }}" type="image/png"> #}
+    </head>
+    <body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %}">
+
+        {% block content %}
+
+            <div id="site-header">
+                {% block site_header %}
+                    <a class="logo" href="{{ url_for('index') }}">{{ publication.title }}</a>
+                    <nav id="site-nav">
+                    </nav>
+                {% endblock %}
+            </div>
+
+            <div id="view-content">
+                {% block view_content %}{% endblock %}
+            </div>
+
+            <footer id="site-footer">
+                {% block site_footer %}{% endblock %}
+            </footer>
+
+            <script src="http://cdn.droptype.com/params/params-1.0.0-min.js"></script>
+            <script>
+                window.params = new Params();
+                {% block view_params %}{% endblock %}
+            </script>
+
+            {% block extra_scripts %}{% endblock %}
+
+        {% endblock %}
+    </body>
+</html>
